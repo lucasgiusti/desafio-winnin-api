@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
-import { CustomExceptionFilter } from './infraestructure/http/filters/custom-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 
@@ -24,8 +23,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
   }));
-  app.useGlobalFilters(new CustomExceptionFilter());
-
+  
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   app.enableCors();
