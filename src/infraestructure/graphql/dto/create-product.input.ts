@@ -10,8 +10,9 @@ export class CreateProductInput {
 
   @Field(() => Float)
   @IsNotEmpty({ message: 'O preço é obrigatório' })
-  @IsNumber({}, { message: 'O preço deve ser um número' })
-  @Matches(/^\d+(\.\d{1,2})?$/, { message: 'O preço deve ter no máximo 2 casas decimais' })
+  @IsNumber({
+    maxDecimalPlaces: 2
+  }, { message: 'O preço deve ser um número com no máximo 2 casas decimais' })
   price: number;
 
   @Field(() => Int)

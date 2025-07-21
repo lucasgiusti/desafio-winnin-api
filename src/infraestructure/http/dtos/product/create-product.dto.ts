@@ -9,8 +9,9 @@ export class CreateProductDto {
 
     @ApiProperty({ example: 10.99 })
     @IsNotEmpty({ message: 'O preço do produto é obrigatório' })
-    @IsNumber({},{ message: 'O preço do produto deve ser um número' })
-    @Matches(/^\d+(\.\d{1,2})?$/, { message: 'O preço deve ter no máximo 2 casas decimais' })
+    @IsNumber({
+      maxDecimalPlaces: 2
+    }, { message: 'O preço do produto deve ser um número com no máximo 2 casas decimais' })
     price: number;
 
     @ApiProperty({ example: 10 })
