@@ -1,32 +1,32 @@
 version: '3.8'
 
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: winnin-api
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-    environment:
-      - NODE_ENV=development
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=winnin_api
-      - TYPEORM_SYNCHRONIZE=false
-      - TYPEORM_LOGGING=true
-      - TYPEORM_MIGRATIONS_RUN=true
-    volumes:
-      - ./src:/app/src
-    command: >
-      sh -c "sleep 5 && npm run migration:run && npm start"
-    networks:
-      - winnin-network
-    restart: unless-stopped
+#  api:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: winnin-api
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - postgres
+#    environment:
+#      - NODE_ENV=development
+#      - POSTGRES_HOST=postgres
+#      - POSTGRES_PORT=5432
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=winnin_api
+#      - TYPEORM_SYNCHRONIZE=false
+#      - TYPEORM_LOGGING=true
+#      - TYPEORM_MIGRATIONS_RUN=true
+#    volumes:
+#      - ./src:/app/src
+#    command: >
+#      sh -c "sleep 5 && npm run migration:run && npm start"
+#    networks:
+#      - winnin-network
+#    restart: unless-stopped
 
   postgres:
     image: postgres:16-alpine

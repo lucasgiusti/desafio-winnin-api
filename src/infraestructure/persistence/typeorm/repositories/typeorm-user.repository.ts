@@ -32,16 +32,6 @@ export class TypeOrmUserRepository implements IUserRepository {
     return TypeOrmUserMapper.toDomain(user);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = await this.userRepository.findOne({ where: { email } });
-    
-    if (!user) {
-      return null;
-    }
-    
-    return TypeOrmUserMapper.toDomain(user);
-  }
-
   async findAll(): Promise<User[]> {
     const users = await this.userRepository.find();
     

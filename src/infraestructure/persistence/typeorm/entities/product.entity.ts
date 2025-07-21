@@ -1,15 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
-@Entity('users')
-export class User {
+@Entity('products')
+export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ length: 100 })
   name: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  price: number;
+
+  @Column()
+  stock: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
