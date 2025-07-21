@@ -24,7 +24,9 @@ export class TypeOrmOrderRepository implements IOrderRepository {
   }
 
   async findById(id: number): Promise<Order | null> {
-    const order = await this.orderRepository.findOne({ where: { id } });
+    const order = await this.orderRepository.findOne({
+      where: { id }
+    });
     
     if (!order) {
       return null;
@@ -35,6 +37,13 @@ export class TypeOrmOrderRepository implements IOrderRepository {
 
   async findAll(): Promise<Order[]> {
     const orders = await this.orderRepository.find();
+    return orders.map(order => TypeOrmOrderMapper.toDomain(order));
+  }
+
+  async findByUserId(userId: number): Promise<Order[]> {
+    const orders = await this.orderRepository.find({
+      where: { user_id: userId }
+    });
     return orders.map(order => TypeOrmOrderMapper.toDomain(order));
   }
 }

@@ -7,6 +7,12 @@ export class OrderItemType {
   id: number;
 
   @Field(() => Int)
+  order_id: number;
+
+  @Field(() => Int)
+  product_id: number;
+
+  @Field(() => Int)
   quantity: number;
 
   @Field(() => Float)

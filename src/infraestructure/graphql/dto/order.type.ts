@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float, Int } from '@nestjs/graphql';
 import { OrderItemType } from './order-item.type';
 import { UserType } from './user.type';
 
@@ -6,6 +6,9 @@ import { UserType } from './user.type';
 export class OrderType {
   @Field(() => ID)
   id: number;
+
+  @Field(() => Int)
+  user_id: number;
 
   @Field(() => Float)
   total: number;

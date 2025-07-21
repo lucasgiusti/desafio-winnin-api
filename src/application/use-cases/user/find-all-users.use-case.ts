@@ -13,7 +13,6 @@ export class FindAllUsersUseCase {
 
     async execute({}: FindAllUsersUseCaseCommand): Promise<User[]> {
         const users = await this.userRepository.findAll();
-
         return users;
     }
 }
