@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 export class OrderItem {
     id?: number;
     order_id: number;

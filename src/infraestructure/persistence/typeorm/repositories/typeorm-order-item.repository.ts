@@ -24,7 +24,9 @@ export class TypeOrmOrderItemRepository implements IOrderItemRepository {
   }
 
   async findById(id: number): Promise<OrderItem | null> {
-    const orderItem = await this.orderItemRepository.findOne({ where: { id } });
+    const orderItem = await this.orderItemRepository.findOne({
+      where: { id }
+    });
     
     if (!orderItem) {
       return null;
@@ -35,6 +37,13 @@ export class TypeOrmOrderItemRepository implements IOrderItemRepository {
 
   async findAll(): Promise<OrderItem[]> {
     const orderItems = await this.orderItemRepository.find();
+    return orderItems.map(orderItem => TypeOrmOrderItemMapper.toDomain(orderItem));
+  }
+
+  async findByOrderId(orderId: number): Promise<OrderItem[]> {
+    const orderItems = await this.orderItemRepository.find({
+      where: { order_id: orderId }
+    });
     return orderItems.map(orderItem => TypeOrmOrderItemMapper.toDomain(orderItem));
   }
 }

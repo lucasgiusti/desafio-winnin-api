@@ -23,7 +23,9 @@ export class TypeOrmUserRepository implements IUserRepository {
   }
 
   async findById(id: number): Promise<User | null> {
-    const user = await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id }
+    });
     
     if (!user) {
       return null;
