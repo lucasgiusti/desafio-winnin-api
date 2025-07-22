@@ -12,7 +12,7 @@ Como utilizei use-cases, utilizei estes mesmos use-cases nas chamdas GraphQL. Is
 
 Neste caso, a criação de pedido ficou em um único use-case, contendo o controle de transações.
 
-Tentei manter o máximo quanto aos principios de OOP, SOLID, Clean Architecture e DDD.
+Tentei manter o máximo de abstrações possível, seguindo os principios de OOP, SOLID, Clean Architecture e DDD.
 
 Foi utilizada IA para as instruções de execução do projeto em uma sessão mais abaixo.
 
