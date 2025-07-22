@@ -2,7 +2,6 @@ import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm
 
 export class CreateDatabaseSchema1689876543210 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
-        // Criar tabela users
         await queryRunner.createTable(
             new Table({
                 name: "users",
@@ -35,7 +34,6 @@ export class CreateDatabaseSchema1689876543210 implements MigrationInterface {
             true
         );
 
-        // Criar tabela products
         await queryRunner.createTable(
             new Table({
                 name: "products",
@@ -73,7 +71,6 @@ export class CreateDatabaseSchema1689876543210 implements MigrationInterface {
             true
         );
 
-        // Criar tabela orders
         await queryRunner.createTable(
             new Table({
                 name: "orders",
@@ -105,7 +102,6 @@ export class CreateDatabaseSchema1689876543210 implements MigrationInterface {
             true
         );
 
-        // Criar tabela order_items
         await queryRunner.createTable(
             new Table({
                 name: "order_items",
@@ -142,7 +138,6 @@ export class CreateDatabaseSchema1689876543210 implements MigrationInterface {
             true
         );
 
-        // Adicionar chaves estrangeiras
         await queryRunner.createForeignKey(
             "orders",
             new TableForeignKey({
@@ -175,7 +170,6 @@ export class CreateDatabaseSchema1689876543210 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        // Remover tabelas na ordem inversa para evitar problemas com chaves estrangeiras
         await queryRunner.dropTable("order_items");
         await queryRunner.dropTable("orders");
         await queryRunner.dropTable("products");

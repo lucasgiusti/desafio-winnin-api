@@ -5,6 +5,7 @@ import { Order as OrderTypeOrm } from '../entities/order.entity';
 import { Order } from "src/domain/entities/order";
 import { IOrderRepository } from 'src/application/interfaces/repositories/order.repository.interface';
 import { TypeOrmOrderMapper } from '../mapper/typeorm-order.mapper';
+import { ITransactionManager } from 'src/application/interfaces/transaction/transaction-manager.interface';
 
 @Injectable()
 export class TypeOrmOrderRepository implements IOrderRepository {
@@ -19,6 +20,16 @@ export class TypeOrmOrderRepository implements IOrderRepository {
     const newOrder = this.orderRepository.create(data);
 
     const savedOrder = await this.orderRepository.save(newOrder);
+    
+    return TypeOrmOrderMapper.toDomain(savedOrder);
+  }
+
+  async createWithTransaction(order: Order, transactionManager: ITransactionManager): Promise<Order> {
+    const data = TypeOrmOrderMapper.toTypeOrm(order);
+    const newOrder = this.orderRepository.create(data);
+
+    const queryRunner = transactionManager.getManager();
+    const savedOrder = await queryRunner.manager.save('orders', newOrder);
     
     return TypeOrmOrderMapper.toDomain(savedOrder);
   }

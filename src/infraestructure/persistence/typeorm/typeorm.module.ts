@@ -13,6 +13,9 @@ import { IOrderRepository } from "src/application/interfaces/repositories/order.
 import { IOrderItemRepository } from "src/application/interfaces/repositories/order-item.repository.interface";
 import { TypeOrmOrderRepository } from "./repositories/typeorm-order.repository";
 import { TypeOrmOrderItemRepository } from "./repositories/typeorm-order-item.repository";
+import { ITransactionService } from "src/application/interfaces/transaction/transaction.service.interface";
+import { DataSource } from "typeorm";
+import { TypeOrmTransactionService } from "./transaction/typeorm-transaction.service";
 
 @Module({
   imports: [
@@ -28,7 +31,7 @@ import { TypeOrmOrderItemRepository } from "./repositories/typeorm-order-item.re
         password: configService.get<string>('POSTGRES_PASSWORD', 'postgres'),
         database: configService.get<string>('POSTGRES_DB', 'winnin_api'),
         entities: [User, Product, Order, OrderItem],
-        synchronize: configService.get<boolean>('TYPEORM_SYNCHRONIZE', false), // Cuidado! Use apenas em desenvolvimento
+        synchronize: configService.get<boolean>('TYPEORM_SYNCHRONIZE', false),
         logging: configService.get<boolean>('TYPEORM_LOGGING', false),
       }),
       inject: [ConfigService],
@@ -51,6 +54,10 @@ import { TypeOrmOrderItemRepository } from "./repositories/typeorm-order-item.re
     {
       provide: IOrderItemRepository,
       useClass: TypeOrmOrderItemRepository,
+    },
+    {
+      provide: ITransactionService,
+      useClass: TypeOrmTransactionService,
     }
   ],
   exports: [
@@ -58,6 +65,7 @@ import { TypeOrmOrderItemRepository } from "./repositories/typeorm-order-item.re
     IProductRepository,
     IOrderRepository,
     IOrderItemRepository,
+    ITransactionService,
   ],
 })
 export class TypeOrmModule {}

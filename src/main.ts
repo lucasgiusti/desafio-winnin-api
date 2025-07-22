@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['log', 'error', 'warn', 'debug', 'fatal'],
   });
+
   // Swagger Configuration
   const config = new DocumentBuilder()
     .setTitle('Winnin API')

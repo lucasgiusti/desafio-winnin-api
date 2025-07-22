@@ -14,7 +14,10 @@ export class OrderController {
 
     @Post()
     async create(@Body() createOrderDto: CreateOrderDto) {
-        const order = await this.createOrderUseCase.execute(createOrderDto);
+        const order = await this.createOrderUseCase.execute({
+            user_id: createOrderDto.user_id,
+            items: createOrderDto.items
+        });
         return order;
     }
 
