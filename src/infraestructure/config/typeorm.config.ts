@@ -2,6 +2,9 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { User } from '../persistence/typeorm/entities/user.entity';
+import { Product } from '../persistence/typeorm/entities/product.entity';
+import { Order } from '../persistence/typeorm/entities/order.entity';
+import { OrderItem } from '../persistence/typeorm/entities/order-item.entity';
 
 // Configuração para o módulo NestJS
 export const getTypeOrmConfig = (configService: ConfigService): TypeOrmModuleOptions => ({
@@ -11,7 +14,7 @@ export const getTypeOrmConfig = (configService: ConfigService): TypeOrmModuleOpt
   username: configService.get<string>('POSTGRES_USER', 'postgres'),
   password: configService.get<string>('POSTGRES_PASSWORD', 'postgres'),
   database: configService.get<string>('POSTGRES_DB', 'winnin_api'),
-  entities: [User],
+  entities: [User, Product, Order, OrderItem],
   synchronize: configService.get<boolean>('TYPEORM_SYNCHRONIZE', false),
   logging: configService.get<boolean>('TYPEORM_LOGGING', false),
   // Configurações adicionais
@@ -30,7 +33,7 @@ const dataSourceOptions: DataSourceOptions = {
   username: process.env.POSTGRES_USER || 'postgres',
   password: process.env.POSTGRES_PASSWORD || 'postgres',
   database: process.env.POSTGRES_DB || 'winnin_api',
-  entities: [User],
+  entities: [User, Product, Order, OrderItem],
   synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
   logging: process.env.TYPEORM_LOGGING === 'true',
   migrations: [__dirname + '/../persistence/typeorm/migrations/**/*{.ts,.js}'],

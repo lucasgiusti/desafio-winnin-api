@@ -43,7 +43,7 @@ export class CreateOrderUseCase {
 
             const order = new Order({
                 user_id: user_id,
-                total: 0
+                total: 0,
             });
 
             for (const item of items) {

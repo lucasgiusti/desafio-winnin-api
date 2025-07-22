@@ -10,6 +10,7 @@ export class TypeOrmUserMapper {
             id: entity.id,
             name: entity.name,
             email: entity.email,
+            created_at: entity.created_at,
         });
         return model;
     }

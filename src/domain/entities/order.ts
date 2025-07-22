@@ -6,6 +6,7 @@ interface OrderProps {
     user_id: number;
     total: number;
     items?: OrderItem[];
+    created_at?: Date;
 }
 
 export class Order {
@@ -13,6 +14,7 @@ export class Order {
     user_id: number;
     total: number;
     items?: OrderItem[] = [];
+    created_at?: Date;
 
     constructor(props: OrderProps) {
         Object.assign(this, props);

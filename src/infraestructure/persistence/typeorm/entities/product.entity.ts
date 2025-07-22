@@ -15,5 +15,5 @@ export class Product {
   stock: number;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  created_at: Date;
 }

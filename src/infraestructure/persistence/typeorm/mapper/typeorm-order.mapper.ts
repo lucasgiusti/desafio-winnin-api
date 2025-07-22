@@ -10,6 +10,7 @@ export class TypeOrmOrderMapper {
             id: entity.id,
             user_id: entity.user_id,
             total: entity.total,
+            created_at: entity.created_at,
         });
         return model;
     }

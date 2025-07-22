@@ -11,6 +11,7 @@ export class TypeOrmProductMapper {
             name: entity.name,
             price: entity.price,
             stock: entity.stock,
+            created_at: entity.created_at,
         });
         return model;
     }

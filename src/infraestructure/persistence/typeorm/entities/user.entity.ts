@@ -13,7 +13,7 @@ export class User {
   email: string;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  created_at: Date;
 
   @OneToMany(() => Order, order => order.user)
   orders: Order[];

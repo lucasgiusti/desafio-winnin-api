@@ -14,7 +14,7 @@ export class Order {
   total: number;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  created_at: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
