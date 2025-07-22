@@ -1,77 +1,251 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Desafio Winnin API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API desenvolvida como parte do desafio para vaga de Engenheiro Backend Node.js Sênior. Este projeto implementa uma API para gerenciamento de usuários, produtos e pedidos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Plano para o desenvolvimento e motivação para as escolhas
 
-## Description
+Para este desenvolvimento, escolhi o Clean Architecture pela familiaridade com esta arquitetura, pois estou utilizando ultimamente. Apesar de o projeto ser simples, achei legal desenvolver nesta arquitetura para compartilhar o conhecimento.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Inicialmente criei o projeto em REST.
 
-## Installation
+Como utilizei use-cases, utilizei estes mesmos use-cases nas chamdas GraphQL. Isso tornou o projeto flexível podendo ter a camada de aplicação sendo utilizada por uma infraestrutura tanto REST como GraphQL.
 
-```bash
-$ npm install
+Neste caso, a criação de pedido ficou em um único use-case, contendo o controle de transações.
+
+Tentei manter o máximo quanto aos principios de OOP, SOLID, Clean Architecture e DDD.
+
+Foi utilizada IA para as instruções de execução do projeto em uma sessão mais abaixo.
+
+
+## Tecnologias Utilizadas
+
+- **Node.js**: Ambiente de execução JavaScript
+- **NestJS**: Framework para construção de aplicações escaláveis
+- **TypeScript**: Linguagem de programação tipada
+- **PostgreSQL**: Banco de dados relacional
+- **TypeORM**: ORM para interação com o banco de dados
+- **GraphQL**: API Query Language para consultas flexíveis
+- **Docker**: Containerização da aplicação
+
+## Arquitetura e Padrões
+
+O projeto segue os princípios da **Clean Architecture** e **DDD**, organizando o código em camadas:
+
+### Camadas da Aplicação
+
+1. **Domain**: Contém as entidades de domínio e regras de negócio centrais
+   - Entidades: `User`, `Product`, `Order`, `OrderItem`
+   - Interfaces de domínio
+
+2. **Application**: Implementa os casos de uso da aplicação
+   - Use Cases: `CreateUserUseCase`, `FindUserByIdUseCase`, `CreateOrderUseCase`, etc.
+   - Interfaces de repositórios e serviços
+   - Commands para padronização de entrada de dados
+
+3. **Infrastructure**: Implementações concretas de interfaces e adaptadores
+   - Persistência: Implementações TypeORM dos repositórios
+   - GraphQL: Resolvers e tipos GraphQL
+   - Configuração: Módulos NestJS, configuração de banco de dados, etc.
+
+### Padrões de Design Utilizados
+
+- **Repository Pattern**: Abstração da camada de persistência
+- **Dependency Injection**: Inversão de controle para melhor testabilidade
+- **Command Pattern**: Encapsulamento de solicitações como objetos
+- **Unit of Work**: Gerenciamento de transações através de abstrações
+- **Mapper Pattern**: Conversão entre entidades de domínio e modelos de persistência
+
+### Destaques de Implementação
+
+- **Abstração de Transações**: Implementação de `ITransactionManager` e `ITransactionService` para desacoplar o código de negócio da infraestrutura de banco de dados
+- **Encapsulamento de Persistência**: Operações de banco de dados encapsuladas nos repositórios
+- **Validações de Negócio**: Regras como validação de e-mail único implementadas nos casos de uso
+- **API Dual**: Suporte simultâneo para REST (via controllers) e GraphQL (via resolvers)
+
+## Executando o Projeto
+
+### Pré-requisitos
+
+- Docker e Docker Compose instalados
+
+### Passos para Execução
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/desafio-winnin-api.git
+   cd desafio-winnin-api
+   ```
+
+2. Execute a aplicação com Docker Compose:
+   ```bash
+   docker-compose up
+   ```
+
+   Isso irá:
+   - Criar um container PostgreSQL na porta 5432
+   - Criar um container para a API na porta 3000
+   - Executar as migrações do banco de dados automaticamente
+   - Iniciar a aplicação
+
+3. Acesse as interfaces:
+   - GraphQL Playground: http://localhost:3000/graphql
+   - Documentação Swagger: http://localhost:3000/api/doc
+
+### Variáveis de Ambiente
+
+As principais variáveis de ambiente estão configuradas no arquivo `docker-compose.yml`. Caso precise personalizar, crie um arquivo `.env` baseado no `.env.example`.
+
+## Exemplos de Uso
+
+### GraphQL
+
+**Criar um usuário:**
+```graphql
+mutation {
+  createUser(input: {
+    name: "João Silva",
+    email: "joao.silva@email.com"
+  }) {
+    id
+    name
+    email
+  }
+}
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+**Buscar todos os usuários:**
+```graphql
+query {
+  users {
+    id
+    name
+    email
+    created_at
+  }
+}
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+**Buscar um usuário específico por Id:**
+```graphql
+query {
+  user(id: 1) {
+    id
+    name
+    email
+    created_at
+  }
+}
 ```
 
-## Support
+**Buscar um usuário específico com seus pedidos:**
+```graphql
+query {
+  user(id: 1) {
+    id
+    name
+    email
+    orders {
+      id
+      total
+      created_at
+    }
+  }
+}
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Criar um produto:**
+```graphql
+mutation {
+  createProduct(input: {
+    name: "Smartphone XYZ",
+    price: 1299.99,
+    stock: 50
+  }) {
+    id
+    name
+    price
+    stock
+  }
+}
+```
 
-## Stay in touch
+**Buscar todos os produtos:**
+```graphql
+query {
+  products {
+    id
+    name
+    price
+    stock
+    created_at
+  }
+}
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Buscar um produto específico por Id:**
+```graphql
+query {
+  product(id: 1) {
+    id
+    name
+    price
+    stock
+    created_at
+  }
+}
+```
 
-## License
+**Criar um pedido:**
+```graphql
+mutation {
+  createOrder(input: {
+    user_id: 1,
+    items: [
+      {
+        product_id: 1,
+        quantity: 2
+      }
+    ]
+  }) {
+    id
+    total
+    items {
+      quantity
+      price
+    }
+  }
+}
+```
 
-Nest is [MIT licensed](LICENSE).
+**Buscar usuário com pedidos e detalhes dos produtos:**
+```graphql
+query {
+  user(id: 1) {
+    id
+    name
+    email
+    orders {
+      id
+      total
+      created_at
+      items {
+        id
+        quantity
+        price
+        product {
+          id
+          name
+          price
+        }
+      }
+    }
+  }
+}
+```
 
+## Estrutura do Banco de Dados
 
-docker build -t giusti/tuhogar-api:latest .
-docker push giusti/tuhogar-api
+- **users**: Armazena informações dos usuários
+- **products**: Catálogo de produtos disponíveis
+- **orders**: Pedidos realizados pelos usuários
+- **order_items**: Itens incluídos em cada pedido
