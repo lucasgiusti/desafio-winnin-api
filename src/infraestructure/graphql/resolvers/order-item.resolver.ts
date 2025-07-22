@@ -11,6 +11,7 @@ export class OrderItemResolver {
 
   @ResolveField(() => ProductType)
   async product(@Parent() orderItem: OrderItemType) {
-    return this.findProductByIdUseCase.execute({ id: orderItem.product_id });
+    const product = await this.findProductByIdUseCase.execute({ id: orderItem.product_id });
+    return product;
   }
 }

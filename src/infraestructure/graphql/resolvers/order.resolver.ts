@@ -21,17 +21,20 @@ export class OrderResolver {
 
   @Query(() => [OrderType])
   async orders() {
-    return this.findAllOrdersUseCase.execute({});
+    const orders = await this.findAllOrdersUseCase.execute({});
+    return orders;
   }
 
   @Query(() => OrderType, { nullable: true })
   async order(@Args('id') id: number) {
-    return this.findOrderByIdUseCase.execute({ id });
+    const order = await this.findOrderByIdUseCase.execute({ id });
+    return order;
   }
 
   @Mutation(() => OrderType)
   async createOrder(@Args('input') input: CreateOrderInput) {
-    return this.createOrderUseCase.execute(input);
+    const order = await this.createOrderUseCase.execute(input);
+    return order;
   }
 
   @ResolveField(() => [OrderItemType])
@@ -42,6 +45,7 @@ export class OrderResolver {
 
   @ResolveField(() => UserType)
   async user(@Parent() order: OrderType) {
-    return this.findUserByIdUseCase.execute({ id: order.user_id });
+    const user = await this.findUserByIdUseCase.execute({ id: order.user_id });
+    return user;
   }
 }

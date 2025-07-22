@@ -18,17 +18,20 @@ export class UserResolver {
 
   @Query(() => [UserType])
   async users() {
-    return this.findAllUsersUseCase.execute({});
+    const users = await this.findAllUsersUseCase.execute({});
+    return users;
   }
 
   @Query(() => UserType, { nullable: true })
   async user(@Args('id') id: number) {
-    return this.findUserByIdUseCase.execute({ id });
+    const user = await this.findUserByIdUseCase.execute({ id });
+    return user;
   }
 
   @Mutation(() => UserType)
   async createUser(@Args('input') input: CreateUserInput) {
-    return this.createUserUseCase.execute(input);
+    const user = await this.createUserUseCase.execute(input);
+    return user;
   }
 
   @ResolveField(() => [OrderType])

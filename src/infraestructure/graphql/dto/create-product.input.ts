@@ -19,6 +19,6 @@ export class CreateProductInput {
   @IsNotEmpty({ message: 'O estoque é obrigatório' })
   @IsNumber({}, { message: 'O estoque deve ser um número' })
   @IsInt({ message: 'O estoque deve ser um número inteiro' })
-  @Min(0, { message: 'O estoque deve ser maior ou igual a 0' })
+  @Min(1, { message: 'O estoque deve ser maior ou igual a 1' })
   stock: number;
 }

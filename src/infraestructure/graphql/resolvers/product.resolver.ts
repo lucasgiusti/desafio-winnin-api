@@ -15,16 +15,19 @@ export class ProductResolver {
 
   @Query(() => [ProductType])
   async products() {
-    return this.findAllProductsUseCase.execute({});
+    const products = await this.findAllProductsUseCase.execute({});
+    return products;
   }
 
   @Query(() => ProductType, { nullable: true })
   async product(@Args('id') id: number) {
-    return this.findProductByIdUseCase.execute({ id });
+    const product = await this.findProductByIdUseCase.execute({ id });
+    return product;
   }
 
   @Mutation(() => ProductType)
   async createProduct(@Args('input') input: CreateProductInput) {
-    return this.createProductUseCase.execute(input);
+    const product = await this.createProductUseCase.execute(input);
+    return product;
   }
 }
